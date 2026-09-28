@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}
+Jewelry Planner — PocketSmart AI
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-head">
+
+    <span class="eyebrow">
+        JEWELRY PLANNER
+    </span>
+
+    <h1>
+        Find style-matched
+        jewelry within
+        your budget.
+    </h1>
+
+    <p>
+        Optionally upload an outfit image.
+        The AI can use it for general
+        color and style coordination.
+    </p>
+
+</section>
+
+
+<form
+    id="jewelryForm"
+    class="planner-form"
+    enctype="multipart/form-data"
+>
+
+    <label>
+
+        Budget (₹)
+
+        <input
+            type="number"
+            name="budget"
+            min="1"
+            required
+        >
+
+    </label>
+
+
+    <label>
+
+        Occasion
+
+        <input
+            name="occasion"
+            required
+            placeholder="Festival / Wedding / College event"
+        >
+
+    </label>
+
+
+    <label>
+
+        Style
+
+        <select name="style">
+
+            <option>
+                Elegant
+            </option>
+
+            <option>
+                Minimal
+            </option>
+
+            <option>
+                Traditional
+            </option>
+
+            <option>
+                Statement
+            </option>
+
+        </select>
+
+    </label>
+
+
+    <label>
+
+        Metal
+
+        <select name="metal">
+
+            <option>
+                Any
+            </option>
+
+            <option>
+                Gold-tone
+            </option>
+
+            <option>
+                Silver-tone
+            </option>
+
+            <option>
+                Pearl
+            </option>
+
+        </select>
+
+    </label>
+
+
+    <label>
+
+        Outfit description
+
+        <textarea
+            name="outfit_description"
+            placeholder="Pastel blue outfit with simple neckline..."
+        ></textarea>
+
+    </label>
+
+
+    <label>
+
+        Outfit image (optional)
+
+        <input
+            type="file"
+            name="outfit_image"
+            accept="image/png,image/jpeg,image/webp"
+        >
+
+    </label>
+
+
+    <button
+        class="btn primary"
+        type="submit"
+    >
+
+        Generate jewelry plan
+
+    </button>
+
+</form>
+
+
+<div id="result"></div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="/static/js/planners.js"></script>
+
+<script>
+setupJewelry();
+</script>
+
+{% endblock %}

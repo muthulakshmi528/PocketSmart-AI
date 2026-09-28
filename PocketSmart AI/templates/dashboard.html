@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard — PocketSmart AI
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-head">
+
+    <span class="eyebrow">
+        PERSONAL DASHBOARD
+    </span>
+
+    <h1>
+        Your planning history
+    </h1>
+
+    <p>
+        Saved automatically when
+        you are logged in.
+    </p>
+
+</section>
+
+
+<div id="dashboardContent">
+
+    <p>
+        Loading...
+    </p>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+(async function() {
+
+    const session =
+        await fetch(
+            "/api/session-info"
+        ).then(
+            response => response.json()
+        );
+
+
+    if (!session.logged_in) {
+
+        location.href = "/login";
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "dashboardContent"
+    ).innerHTML = `
+
+        <div class="toolbar">
+
+            <strong>
+                Hi,
+                ${escapeHtml(
+                    session.user.name
+                )}
+            </strong>
+
+            <button
+                class="btn secondary"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+        <div id="history">
+            Loading history...
+        </div>
+    `;
+
+
+    const data =
+        await fetch(
+            "/api/history"
+        ).then(
+            response => response.json()
+        );
+
+
+    const rows =
+        data.history || [];
+
+
+    if (!rows.length) {
+
+        document.getElementById(
+            "history"
+        ).innerHTML = `
+            <div class="empty">
+                No saved recommendations yet.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "history"
+    ).innerHTML = rows.map(
+        item => `
+
+        <article class="history-item">
+
+            <div>
+
+                <b>
+                    ${escapeHtml(
+                        item.planner_type
+                            .toUpperCase()
+                    )}
+                </b>
+
+                <span>
+                    ${escapeHtml(
+                        item.created_at
+                    )}
+                </span>
+
+            </div>
+
+            <p>
+                ${escapeHtml(
+                    item.response.summary
+                )}
+            </p>
+
+            <small>
+
+                Budget:
+                ₹${Number(
+                    item.response.budget || 0
+                ).toLocaleString("en-IN")}
+
+                ·
+
+                Estimated:
+                ₹${Number(
+                    item.response.estimated_total || 0
+                ).toLocaleString("en-IN")}
+
+            </small>
+
+        </article>
+
+        `
+    ).join("");
+
+})();
+
+
+async function logout() {
+
+    await fetch(
+        "/api/logout",
+        {
+            method: "POST"
+        }
+    );
+
+    location.href = "/";
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(
+            /[&<>"']/g,
+            character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+            }[character])
+        );
+
+}
+
+</script>
+
+{% endblock %}

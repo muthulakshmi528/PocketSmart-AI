@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}
+PocketSmart AI — Smart Budget Planner
+{% endblock %}
+
+
+{% block content %}
+
+<section class="hero">
+
+    <div>
+
+        <span class="eyebrow">
+            GENERATIVE AI BUDGET ASSISTANT
+        </span>
+
+        <h1>
+            Plan smarter.
+            Spend with confidence.
+        </h1>
+
+        <p>
+            Get budget-aware ideas for
+            home interiors, parties,
+            and jewelry.
+        </p>
+
+        <div class="actions">
+
+            <a
+                class="btn primary"
+                href="/planner/home"
+            >
+                Start planning
+            </a>
+
+            <a
+                class="btn secondary"
+                href="/register"
+            >
+                Create account
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-card">
+
+        <div class="metric">
+            ₹
+        </div>
+
+        <h3>
+            One budget.
+            Many possibilities.
+        </h3>
+
+        <p>
+            Allocate spending, compare
+            categories, and keep a
+            recommendation history.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="grid three">
+
+    <a
+        class="card"
+        href="/planner/home"
+    >
+
+        <div class="icon">
+            🏠
+        </div>
+
+        <h2>
+            Home Interior
+        </h2>
+
+        <p>
+            Rooms, style, quantities,
+            furniture, lighting and decor.
+        </p>
+
+    </a>
+
+
+    <a
+        class="card"
+        href="/planner/party"
+    >
+
+        <div class="icon">
+            🎉
+        </div>
+
+        <h2>
+            Party Planner
+        </h2>
+
+        <p>
+            Guest count, event type,
+            catering, venue and decoration.
+        </p>
+
+    </a>
+
+
+    <a
+        class="card"
+        href="/planner/jewelry"
+    >
+
+        <div class="icon">
+            💎
+        </div>
+
+        <h2>
+            Jewelry Planner
+        </h2>
+
+        <p>
+            Occasion, style, metal and
+            optional outfit image analysis.
+        </p>
+
+    </a>
+
+</section>
+
+
+<section class="info">
+
+    <h2>
+        How it works
+    </h2>
+
+    <ol>
+
+        <li>
+            Enter your budget and preferences.
+        </li>
+
+        <li>
+            Choose a planner and submit.
+        </li>
+
+        <li>
+            AI uses your context and
+            grounded catalog data.
+        </li>
+
+        <li>
+            Review recommendations and
+            provider search links.
+        </li>
+
+    </ol>
+
+</section>
+
+{% endblock %}

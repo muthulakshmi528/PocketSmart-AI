@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home Interior Planner — PocketSmart AI
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-head">
+
+    <span class="eyebrow">
+        HOME INTERIOR
+    </span>
+
+    <h1>
+        Build a room plan
+        around your budget.
+    </h1>
+
+    <p>
+        Add rooms, style and quantities.
+        Recommendations are budget-checked
+        before they are displayed.
+    </p>
+
+</section>
+
+
+<form
+    id="homeForm"
+    class="planner-form"
+>
+
+    <label>
+
+        Total budget (₹)
+
+        <input
+            type="number"
+            name="budget"
+            min="1"
+            required
+            placeholder="50000"
+        >
+
+    </label>
+
+
+    <label>
+
+        Rooms
+
+        <input
+            name="rooms"
+            required
+            placeholder="Living Room, Bedroom"
+        >
+
+    </label>
+
+
+    <label>
+
+        Style
+
+        <select name="style">
+
+            <option>
+                Modern
+            </option>
+
+            <option>
+                Minimal
+            </option>
+
+            <option>
+                Traditional
+            </option>
+
+            <option>
+                Contemporary
+            </option>
+
+        </select>
+
+    </label>
+
+
+    <label>
+
+        City
+
+        <input
+            name="city"
+            value="Coimbatore"
+        >
+
+    </label>
+
+
+    <div id="items">
+
+        <div class="item-row">
+
+            <input
+                name="category"
+                value="lighting"
+                placeholder="Item category"
+            >
+
+            <input
+                name="quantity"
+                type="number"
+                value="1"
+                min="1"
+            >
+
+        </div>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="btn secondary"
+        onclick="addItem()"
+    >
+
+        + Add item
+
+    </button>
+
+
+    <button
+        class="btn primary"
+        type="submit"
+    >
+
+        Generate home plan
+
+    </button>
+
+</form>
+
+
+<div id="result"></div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="/static/js/planners.js"></script>
+
+<script>
+setupHome();
+</script>
+
+{% endblock %}

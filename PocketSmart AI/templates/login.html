@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{{ "Create account"
+if mode == "register"
+else "Login" }}
+
+— PocketSmart AI
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth-card">
+
+    <h1>
+
+        {{
+            "Create your account"
+            if mode == "register"
+            else "Welcome back"
+        }}
+
+    </h1>
+
+
+    <p>
+
+        {{
+            "Save recommendations and view "
+            "your planning history."
+            if mode == "register"
+            else
+            "Login to access your dashboard "
+            "and history."
+        }}
+
+    </p>
+
+
+    <form id="authForm">
+
+        {% if mode == "register" %}
+
+        <label>
+
+            Name
+
+            <input
+                name="name"
+                required
+                minlength="2"
+            >
+
+        </label>
+
+        {% endif %}
+
+
+        <label>
+
+            Email
+
+            <input
+                name="email"
+                type="email"
+                required
+            >
+
+        </label>
+
+
+        <label>
+
+            Password
+
+            <input
+                name="password"
+                type="password"
+                required
+                minlength="6"
+            >
+
+        </label>
+
+
+        <button
+            class="btn primary"
+            type="submit"
+        >
+
+            {{
+                "Register"
+                if mode == "register"
+                else "Login"
+            }}
+
+        </button>
+
+    </form>
+
+
+    <p
+        id="formMessage"
+        class="message"
+    ></p>
+
+
+    <p>
+
+        {% if mode == "register" %}
+
+        <a href="/login">
+            Already have an account?
+        </a>
+
+        {% else %}
+
+        <a href="/register">
+            Create an account
+        </a>
+
+        {% endif %}
+
+    </p>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+const form =
+    document.getElementById("authForm");
+
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const data =
+            Object.fromEntries(
+                new FormData(form).entries()
+            );
+
+
+        const endpoint =
+            {% if mode == "register" %}
+            "/api/register"
+            {% else %}
+            "/api/login"
+            {% endif %};
+
+
+        const response =
+            await fetch(
+                endpoint,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(data)
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        document.getElementById(
+            "formMessage"
+        ).textContent =
+            result.detail ||
+            result.message ||
+            "";
+
+
+        if (response.ok) {
+
+            {% if mode == "register" %}
+
+            location.href = "/login";
+
+            {% else %}
+
+            location.href = "/dashboard";
+
+            {% endif %}
+
+        }
+
+    }
+);
+
+</script>
+
+{% endblock %}
